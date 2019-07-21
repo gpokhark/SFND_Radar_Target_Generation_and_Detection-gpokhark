@@ -19,8 +19,8 @@ speed_of_light = 3e8;
 % *%TODO* :
 % define the target's initial position and velocity. Note : Velocity
 % remains contant
-Range_of_target = 150;
-Velocity_of_target = 0;
+Range_of_target = 100;
+Velocity_of_target = 50;
 
 
 %% FMCW Waveform Generation
@@ -121,6 +121,7 @@ figure ('Name','Range from First FFT')
 % plot FFT output
 plot(sig_fft1);
 axis ([0 200 0 1]);
+title('Range from First FFT');
 ylabel('Normalized Amplitude');
 xlabel('Range');
 
@@ -153,8 +154,29 @@ RDM = 10*log10(RDM) ;
 %dimensions
 doppler_axis = linspace(-100,100,Nd);
 range_axis = linspace(-200,200,Nr/2)*((Nr/2)/400);
-figure ('Name','Range and Speed From FFT2');
+figure ('Name','FFT2 surface plot');
 surf(doppler_axis,range_axis,RDM);
+title('FFT2 surface plot');
+xlabel('Speed');
+ylabel('Range');
+zlabel('Amplitude');
+
+% Additional views of the surface plot
+figure ('Name','Amplitude and Range From FFT2');
+surf(doppler_axis,range_axis,RDM);
+title('Amplitude and Range From FFT2');
+xlabel('Speed');
+ylabel('Range');
+zlabel('Amplitude');
+view(90,0);
+
+figure ('Name','Amplitude and Speed From FFT2');
+surf(doppler_axis,range_axis,RDM);
+title('Amplitude and Speed From FFT2');
+xlabel('Speed');
+ylabel('Range');
+zlabel('Amplitude');
+view(0,0);
 
 %% CFAR implementation
 
@@ -242,7 +264,30 @@ RDM(:,union(1:(Td+Gd),end-(Td+Gd-1):end)) = 0;  % Columns
 figure('Name', 'CA-CFAR Filtered RDM')
 surf(doppler_axis,range_axis,RDM);
 colorbar;
-title( 'CA-CFAR Filtered RDM');
+title( 'CA-CFAR Filtered RDM surface plot');
+xlabel('Speed');
+ylabel('Range');
+zlabel('Normalized Amplitude');
+
+
+% Additional views of the surface plot
+figure ('Name','Amplitude and Range From CA-CFAR');
+surf(doppler_axis,range_axis,RDM);
+colorbar;
+title('Amplitude and Range From CA-CFAR');
+xlabel('Speed');
+ylabel('Range');
+zlabel('Amplitude');
+view(90,0);
+
+figure ('Name','Amplitude and Speed From CA-CFAR');
+surf(doppler_axis,range_axis,RDM);
+colorbar;
+title('Amplitude and Speed From CA-CFAR');
+xlabel('Speed');
+ylabel('Range');
+zlabel('Amplitude');
+view(0,0);
 
 
 
